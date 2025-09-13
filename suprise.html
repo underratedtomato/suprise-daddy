@@ -1,0 +1,154 @@
+<!--
+Cute LDR Surprise — single-file HTML
+How to use:
+1. Copy this entire file into a new file named `surprise.html`.
+2. Send the file to your boyfriend or host it (GitHub Pages, Netlify, or any static host).
+3. When he opens the page, a short animation and a sweet message will appear. There's a "Reveal" button to make it extra playful.
+
+Notes:
+- This file is self-contained (no external images). It uses simple CSS and JavaScript animations.
+- You can edit the message inside the <div id="message"> element.
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>For You ❤️</title>
+  <style>
+    :root{--bg:#FFF7FB;--card:#ffffff;--accent:#ff6b81;--muted:#7b6b8a}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--bg),#fff);font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    .wrap{width:94%;max-width:720px;padding:28px;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.8));box-shadow:0 10px 30px rgba(0,0,0,.08);text-align:center;position:relative;overflow:hidden}
+    h1{margin:0 0 6px;font-size:28px;color:var(--accent);letter-spacing:0.4px}
+    p.lead{margin:0 0 18px;color:var(--muted)}
+    .heart{
+      width:110px;height:100px;margin:10px auto 18px;position:relative;transform:scale(0);animation:pop .6s cubic-bezier(.2,.9,.3,1) forwards .4s}
+    .heart:before,.heart:after{content:'';position:absolute;width:60px;height:90px;background:var(--accent);border-radius:60px 60px 0 0;top:0;left:25px;transform:rotate(-45deg);transform-origin:0 100%}
+    .heart:after{left:0;transform:rotate(45deg);transform-origin:100% 100%}
+    @keyframes pop{to{transform:scale(1)}}
+
+    .card{background:var(--card);padding:18px;border-radius:14px;box-shadow:inset 0 -6px 20px rgba(255,107,129,0.03);margin-top:10px}
+    #message{min-height:86px;display:flex;align-items:center;justify-content:center;padding:10px;font-size:18px;color:#4b3b5a}
+    .controls{display:flex;gap:10px;justify-content:center;margin-top:12px}
+    button{padding:9px 14px;border-radius:10px;border:0;background:var(--accent);color:white;font-weight:600;cursor:pointer;box-shadow:0 6px 18px rgba(255,107,129,.18)}
+    button.ghost{background:transparent;color:var(--accent);box-shadow:none;border:1px solid rgba(255,107,129,.18)}
+    .small{font-size:13px;padding:7px 10px}
+    .type{font-family: 'Georgia', serif; font-size:20px}
+
+    /* confetti canvas full cover */
+    canvas#confetti{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
+
+    footer{margin-top:12px;font-size:12px;color:#9b89a8}
+    a.link{color:var(--accent);text-decoration:none}
+
+    /* tiny responsive tweak */
+    @media (max-width:420px){h1{font-size:22px}.heart{width:82px;height:74px}}
+  </style>
+</head>
+<body>
+  <div class="wrap" aria-live="polite">
+    <canvas id="confetti"></canvas>
+    <h1>For you, my favourite person , Amir Hazizi <3</h1>
+    <p class="lead">Open this whenever you need a reminder that someone cares. 💌</p>
+
+    <div class="heart" aria-hidden="true"></div>
+
+    <div class="card">
+      <div id="message" class="type">Click <strong>Reveal</strong> — there’s something sweet inside ✨</div>
+      <div class="controls">
+        <button id="reveal">Reveal</button>
+        <button class="ghost small" id="voice">Voice note</button>
+        <button class="ghost small" id="copy">Copy message</button>
+      </div>
+    </div>
+
+    <footer>Made with care • ONLY FOR AMIR HAZIZI! 🌤️</footer>
+  </div>
+
+  <script>
+    // Message to show (edit this to personalize)
+    const fullMessage = `Daddy , my nak daddy tau yang my sayangkan daddy sangat sangat, dy cinta terakhir my. walau apapun ujian yang kita hadap , my harap dy akan kekal dengan my sampai akhir hayat. my selalu doakan dy. terima kasih jadi my personal sunshine. i love you the most! jaga diri, senyum selalu. ❤️`;
+
+    const messageEl = document.getElementById('message');
+    const revealBtn = document.getElementById('reveal');
+    const copyBtn = document.getElementById('copy');
+    const voiceBtn = document.getElementById('voice');
+
+    function typeWriter(text, el, delay=25){
+      el.textContent = '';
+      let i=0;
+      const t = setInterval(()=>{
+        el.textContent += text.charAt(i);
+        i++;
+        if(i>=text.length) clearInterval(t);
+      }, delay);
+    }
+
+    revealBtn.addEventListener('click', ()=>{
+      typeWriter(fullMessage, messageEl, 28);
+      popConfetti();
+      revealBtn.textContent = 'Revealed!';
+      revealBtn.disabled = true;
+    });
+
+    copyBtn.addEventListener('click', ()=>{
+      navigator.clipboard && navigator.clipboard.writeText(fullMessage).then(()=>{
+        copyBtn.textContent = 'Copied!';
+        setTimeout(()=>copyBtn.textContent = 'Copy message',1400);
+      }).catch(()=>{
+        alert('Copy failed — highlight and copy manually.');
+      });
+    });
+
+    // Simple speech synthesis for voice note (works on most mobile/desktop)
+    voiceBtn.addEventListener('click', ()=>{
+      if(!('speechSynthesis' in window)){ alert('Voice not supported on this device.'); return }
+      const u = new SpeechSynthesisUtterance(fullMessage);
+      u.lang = 'ms-MY';
+      u.rate = 0.95;
+      speechSynthesis.cancel();
+      speechSynthesis.speak(u);
+    });
+
+    // Confetti (small, lightweight)
+    function popConfetti(){
+      const canvas = document.getElementById('confetti');
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = canvas.clientWidth * dpr;
+      canvas.height = canvas.clientHeight * dpr;
+      ctx.scale(dpr,dpr);
+
+      const w = canvas.clientWidth; const h = canvas.clientHeight;
+      const pieces = [];
+      const colors = ['#ff6b81','#ffd166','#9ad3bc','#c084fc','#ffb4a2'];
+      for(let i=0;i<40;i++) pieces.push({x:Math.random()*w,y:-10,vy:2+Math.random()*5,ax:Math.random()*0.1-0.05,rotation:Math.random()*360,vr:Math.random()*6-3,color:colors[i%colors.length],size:6+Math.random()*8});
+
+      let t=0;
+      function draw(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        pieces.forEach(p=>{
+          p.vy += 0.06; p.x += p.ax*2; p.y += p.vy; p.rotation += p.vr;
+          ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rotation*Math.PI/180);
+          ctx.fillStyle = p.color; ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size);
+          ctx.restore();
+        });
+        t+=1;
+        if(t<200) requestAnimationFrame(draw);
+        else ctx.clearRect(0,0,canvas.width,canvas.height);
+      }
+      draw();
+    }
+
+    // Small gentle entrance after load
+    window.addEventListener('load', ()=>{
+      setTimeout(()=>{
+        const heart = document.querySelector('.heart');
+        heart.style.transform = 'scale(1)';
+      }, 250);
+    });
+  </script>
+</body>
+</html>
