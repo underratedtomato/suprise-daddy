@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>For Amir Hazizi , cinta hati ❤️</title>
+<style>
+  :root{
+    --bg1:#111016;
+    --bg2:#2b0f3b;
+    --card:#fff6f9;
+    --accent:#ff6b81;
+    --muted:#6b5b74;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: radial-gradient(circle at 10% 10%, rgba(255,107,129,0.06), transparent 10%),
+                linear-gradient(180deg,var(--bg1),var(--bg2));
+    color:#fff;
+    font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    padding:28px;
+    overflow:hidden;
+  }
+
+  .stage{
+    width:95%;
+    max-width:900px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+    border-radius:20px;
+    padding:26px;
+    box-shadow:0 18px 50px rgba(5,5,8,0.6);
+    position:relative;
+    overflow:hidden;
+    z-index:2;
+  }
+
+  header{display:flex;gap:16px;align-items:center}
+  .avatar{
+    width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#ffb4c0);
+    display:flex;align-items:center;justify-content:center;font-size:34px;box-shadow:0 8px 30px rgba(0,0,0,0.45)
+  }
+  h1{margin:0;font-size:20px;color:#fff;letter-spacing:0.2px}
+  p.lead{margin:6px 0 0;color:#e9d8ef;font-size:13px}
+
+  .card{
+    margin-top:18px;
+    background:var(--card);
+    color:#2b1630;
+    border-radius:14px;
+    padding:18px;
+    min-height:220px;
+    position:relative;
+  }
+
+  #letter{
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size:18px;
+    line-height:1.6;
+    white-space:pre-wrap;
+    min-height:150px;
+    color:#3b2a3b;
+    padding:10px;
+  }
+
+  .controls{display:flex;gap:10px;justify-content:center;margin-top:14px}
+  button{
+    background:var(--accent);
+    color:white;border:0;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer;
+    box-shadow:0 8px 20px rgba(255,107,129,0.14);
+  }
+  button.ghost{background:transparent;color:var(--accent);border:1px solid rgba(255,107,129,0.12);box-shadow:none}
+  small{display:block;margin-top:10px;color:var(--muted);text-align:center;font-size:13px}
+
+  /* tear */
+  .tear{
+    position:absolute; right:22px; top:-30px; width:120px; opacity:0.06; transform:rotate(8deg);
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float{0%{transform:translateY(0) rotate(6deg)}50%{transform:translateY(8px) rotate(-2deg)}100%{transform:translateY(0) rotate(6deg)}}
+
+  /* confetti */
+  .confetti{
+    position:fixed;
+    width:10px; height:14px;
+    background:var(--accent);
+    top:-20px;
+    opacity:0.9;
+    transform:rotate(15deg);
+    animation: fall 3s linear forwards;
+    z-index:1;
+  }
+  @keyframes fall{
+    to{ transform:translateY(110vh) rotate(360deg); opacity:0; }
+  }
+
+  footer{margin-top:10px;color:#e0cde0;text-align:center;font-size:13px}
+  @media (max-width:560px){
+    .stage{padding:14px}
+    #letter{font-size:16px}
+  }
+</style>
+</head>
+<body>
+  <div class="stage" role="main" aria-live="polite">
+    <img class="tear" src="data:image/svg+xml;utf8,
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><path fill='%23ffb4c0' d='M32 2C20 16 10 26 10 40a22 22 0 0044 0C54 26 44 16 32 2z'/></svg>" alt="" />
+    <header>
+      <div class="avatar">❤</div>
+      <div>
+        <h1>FOR You my daddy <3</h1>
+        <p class="lead">PRESS <strong>open heart ❤️ </strong> — baca slowly & jangan tutup mata hehe ✨</p>
+      </div>
+    </header>
+
+    <div class="card">
+      <div id="letter">Press "open heart ❤️ " to start sayang...</div>
+
+      <div class="controls" aria-hidden="false">
+        <button id="openBtn">open heart ❤️</button>
+        <button class="ghost" id="copyBtn">COPYYY</button>
+      </div>
+
+      <small>since i love you so much , this is the least i can do for you.</small>
+    </div>
+
+    <footer>Made with love for Amir Hazizi my love ❤️</footer>
+  </div>
+
+<script>
+  const message = `Sayangku,\n\nDaddy , my nak daddy tau yang my sayangkan daddy sangat sangat, dy cinta terakhir my. walau apapun ujian yang kita hadap , my harap dy akan kekal dengan my sampai akhir hayat. my selalu doakan dy. terima kasih jadi my personal sunshine. i love you the most! \n\nmy tahu kadang dy marah tapi percaya lah , setiap dy marah tu buat my lagi sayangkan dy . sebab my tahu di sebalik marah ada rasa takut, takut tak cukup, takut tidak dihargai. kalau cara my tunjuk sayang tak cukup untuk dy, maafkan my. my sedang belajar. my nak jadi orang yang dy boleh bersandar.\n\nSatu hari nanti,depan dy, my nak pegang tangan dy dan cakap balik semua janji ini. but for now, biarla mesej ni jadi bukti kecil yang my benar benar rindukan dy sayangkan dy lebih dari apa pun. jaga diri. ❤️\n\nDengan sepenuh hati,\n\n— orang yang sayang dy sangat sangat`;
+
+  const letterEl = document.getElementById('letter');
+  const openBtn = document.getElementById('openBtn');
+  const copyBtn = document.getElementById('copyBtn');
+
+  function typeOut(text, el, delay=28, onFinish){
+    el.textContent = '';
+    let i = 0;
+    const iv = setInterval(()=>{
+      el.textContent += text.charAt(i);
+      i++;
+      if(i >= text.length){
+        clearInterval(iv);
+        if(onFinish) onFinish();
+      }
+    }, delay);
+  }
+
+  function launchConfetti(){
+    for(let i=0;i<50;i++){
+      const conf = document.createElement('div');
+      conf.className = 'confetti';
+      conf.style.left = Math.random()*100 + 'vw';
+      conf.style.backgroundColor = `hsl(${Math.random()*360}, 80%, 60%)`;
+      conf.style.animationDuration = (2+Math.random()*2)+'s';
+      document.body.appendChild(conf);
+      setTimeout(()=> conf.remove(), 4000);
+    }
+  }
+
+  openBtn.addEventListener('click', ()=>{
+    typeOut(message, letterEl, 28, ()=> launchConfetti());
+    openBtn.disabled = true;
+    openBtn.textContent = 'Dibuka ❤️';
+  });
+
+  copyBtn.addEventListener('click', ()=> {
+    navigator.clipboard && navigator.clipboard.writeText(message).the
